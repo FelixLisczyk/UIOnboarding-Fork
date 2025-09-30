@@ -41,15 +41,24 @@ extension UIOnboardingTitleLabel {
 
     func updateFontSize(_ fontSize: CGFloat) {
         guard let attributedString = attributedText else { return }
-        let originalFont = font
         let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
+
+        // Update the label's base font
+        let updatedBaseFont = font.withSize(fontSize)
+        self.font = updatedBaseFont
+
+        // Update fonts in the attributed string
         mutableAttributedString.enumerateAttributes(in: NSRange(location: 0,
                                                                 length: mutableAttributedString.length),
                                                     options: []) { attributes, range, _ in
-            if let font = attributes[.font] as? UIFont {
-                let multiplier = font.pointSize / (originalFont?.pointSize ?? font.pointSize)
-                let newFont = font.withSize(fontSize * multiplier)
+            if let existingFont = attributes[.font] as? UIFont {
+                // If font is already set in attributed string, preserve relative sizing
+                let multiplier = existingFont.pointSize / self.font.pointSize
+                let newFont = existingFont.withSize(fontSize * multiplier)
                 mutableAttributedString.addAttribute(.font, value: newFont, range: range)
+            } else {
+                // If no font is set, apply the base font
+                mutableAttributedString.addAttribute(.font, value: updatedBaseFont, range: range)
             }
         }
 
