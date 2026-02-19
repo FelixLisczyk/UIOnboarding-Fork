@@ -26,6 +26,10 @@ struct UIOnboardingHelper {
         ])
     }
     
+    static func setUpTagline() -> String {
+        "Know Every Rank"
+    }
+
     static func setUpFeatures() -> Array<UIOnboardingFeature> {
         .init([
             .init(icon: .init(named: "feature-1"),
@@ -59,6 +63,7 @@ extension UIOnboardingViewConfiguration {
         .init(appIcon: UIOnboardingHelper.setUpIcon(),
               firstTitleLine: UIOnboardingHelper.setUpFirstTitleLine(),
               secondTitleLine: UIOnboardingHelper.setUpSecondTitleLine(),
+              tagline: UIOnboardingHelper.setUpTagline(),
               features: UIOnboardingHelper.setUpFeatures(),
               textViewConfiguration: UIOnboardingHelper.setUpNotice(),
               buttonConfiguration: UIOnboardingHelper.setUpButton())
