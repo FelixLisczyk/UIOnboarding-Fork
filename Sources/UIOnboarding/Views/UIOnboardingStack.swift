@@ -74,11 +74,15 @@ final class UIOnboardingStack: UIStackView {
 
         let titleSpacing: CGFloat = traitCollection.horizontalSizeClass == .regular ? 40 : UIScreenType.setUpTitleSpacing()
         if let taglineText = configuration.tagline {
-            setCustomSpacing(8, after: onboardingTitleLabelStack)
+            setCustomSpacing(14, after: onboardingTitleLabelStack)
             let taglineLabel = UILabel()
             taglineLabel.text = taglineText
-            taglineLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-            taglineLabel.textColor = .secondaryLabel
+            var taglineFont = UIFont.systemFont(ofSize: 20, weight: .medium)
+            if let italicDescriptor = taglineFont.fontDescriptor.withSymbolicTraits(.traitItalic) {
+                taglineFont = UIFont(descriptor: italicDescriptor, size: 20)
+            }
+            taglineLabel.font = taglineFont
+            taglineLabel.textColor = configuration.taglineColor ?? .secondaryLabel
             taglineLabel.numberOfLines = 0
             taglineLabel.adjustsFontSizeToFitWidth = true
             taglineLabel.minimumScaleFactor = 0.8
