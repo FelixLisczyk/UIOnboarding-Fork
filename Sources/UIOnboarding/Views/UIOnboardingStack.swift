@@ -69,10 +69,27 @@ final class UIOnboardingStack: UIStackView {
         setCustomSpacing(26, after: onboardingIcon)
         
         addArrangedSubview(onboardingTitleLabelStack)
-        setCustomSpacing(traitCollection.horizontalSizeClass == .regular ? 40 : UIScreenType.setUpTitleSpacing(), after: onboardingTitleLabelStack)
         onboardingTitleLabelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         onboardingTitleLabelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
+
+        let titleSpacing: CGFloat = traitCollection.horizontalSizeClass == .regular ? 40 : UIScreenType.setUpTitleSpacing()
+        if let taglineText = configuration.tagline {
+            setCustomSpacing(8, after: onboardingTitleLabelStack)
+            let taglineLabel = UILabel()
+            taglineLabel.text = taglineText
+            taglineLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+            taglineLabel.textColor = .secondaryLabel
+            taglineLabel.numberOfLines = 0
+            taglineLabel.adjustsFontSizeToFitWidth = true
+            taglineLabel.minimumScaleFactor = 0.8
+            addArrangedSubview(taglineLabel)
+            taglineLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+            taglineLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            setCustomSpacing(titleSpacing, after: taglineLabel)
+        } else {
+            setCustomSpacing(titleSpacing, after: onboardingTitleLabelStack)
+        }
+
         addArrangedSubview(featuresList)
         featuresList.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         featuresList.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true

@@ -11,14 +11,16 @@ public struct UIOnboardingViewConfiguration {
     public var appIcon: UIImage
     public var firstTitleLine: NSMutableAttributedString
     public var secondTitleLine: NSMutableAttributedString
+    public var tagline: String? = nil
     public var features: Array<UIOnboardingFeature>
     public let featureStyle: UIOnboardingFeatureStyle
     public var textViewConfiguration: UIOnboardingTextViewConfiguration? = nil
     public var buttonConfiguration: UIOnboardingButtonConfiguration
-    
+
     public init(appIcon: UIImage,
                 firstTitleLine: NSMutableAttributedString,
                 secondTitleLine: NSMutableAttributedString,
+                tagline: String? = nil,
                 features: Array<UIOnboardingFeature>,
                 featureStyle: UIOnboardingFeatureStyle = .init(),
                 textViewConfiguration: UIOnboardingTextViewConfiguration? = nil,
@@ -26,6 +28,7 @@ public struct UIOnboardingViewConfiguration {
         self.appIcon = appIcon
         self.firstTitleLine = firstTitleLine
         self.secondTitleLine = secondTitleLine
+        self.tagline = tagline
         self.features = features
         self.featureStyle = featureStyle
         self.textViewConfiguration = textViewConfiguration
