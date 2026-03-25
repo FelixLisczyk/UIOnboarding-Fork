@@ -10,12 +10,16 @@ import UIKit
 struct UIOnboardingFeature {
     var icon: UIImage!
     var iconTint: UIColor
+    var isPremium: Bool
+    var premiumBadgeTitle: String
     var title: String
     var description: String
-    
-    init(icon: UIImage!, iconTint: UIColor = .label, title: String, description: String) {
+
+    init(icon: UIImage!, iconTint: UIColor = .label, isPremium: Bool = false, premiumBadgeTitle: String = "Pro", title: String, description: String) {
         self.icon = icon
         self.iconTint = iconTint
+        self.isPremium = isPremium
+        self.premiumBadgeTitle = premiumBadgeTitle
         self.title = title
         self.description = description
     }
