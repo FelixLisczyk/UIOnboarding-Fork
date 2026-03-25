@@ -109,15 +109,56 @@ final class UIOnboardingCell: UITableViewCell {
         set(feature)
     }
     
+    private var premiumBadge: UIView?
+
     private func set(_ feature: UIOnboardingFeature) {
+        premiumBadge?.removeFromSuperview()
+        premiumBadge = nil
+
         featureGlyph.image = feature.icon
         featureGlyph.tintColor = feature.iconTint
-                
+
         titleLabel.text = feature.title
         titleLabel.accessibilityLabel = feature.title
-        
+
         descriptionLabel.text = feature.description
         descriptionLabel.accessibilityLabel = feature.description
+
+        if feature.isPremium {
+            addPremiumBadge(tintColor: feature.iconTint, title: feature.premiumBadgeTitle)
+        }
+    }
+
+    private func addPremiumBadge(tintColor: UIColor, title: String) {
+
+        let label = UILabel()
+        label.text = title.uppercased()
+        label.font = .systemFont(ofSize: 8, weight: .heavy)
+        label.textColor = .white
+        label.textAlignment = .center
+
+        let badge = UIView()
+        badge.backgroundColor = tintColor
+        badge.layer.cornerRadius = 5
+        badge.clipsToBounds = true
+        badge.translatesAutoresizingMaskIntoConstraints = false
+        badge.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: badge.topAnchor, constant: 1),
+            label.bottomAnchor.constraint(equalTo: badge.bottomAnchor, constant: -1),
+            label.leadingAnchor.constraint(equalTo: badge.leadingAnchor, constant: 4),
+            label.trailingAnchor.constraint(equalTo: badge.trailingAnchor, constant: -4),
+        ])
+
+        contentView.addSubview(badge)
+        NSLayoutConstraint.activate([
+            badge.trailingAnchor.constraint(equalTo: featureGlyph.trailingAnchor, constant: 4),
+            badge.bottomAnchor.constraint(equalTo: featureGlyph.bottomAnchor, constant: 2),
+        ])
+
+        premiumBadge = badge
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

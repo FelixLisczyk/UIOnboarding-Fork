@@ -35,6 +35,8 @@ struct UIOnboardingHelper {
                   title: "Enlist prepared",
                   description: "Practice with the app and pass the rank test on the first run."),
             .init(icon: .init(named: "feature-3"),
+                  iconTint: UIColor(named: "camou") ?? UIColor(red: 0.654, green: 0.618, blue: 0.494, alpha: 1.0),
+                  isPremium: true,
                   title: "#teamarmee",
                   description: "Add name tags of your comrades or cadre. Insignia automatically keeps every name tag you create in iCloud.")
         ])
